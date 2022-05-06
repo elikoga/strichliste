@@ -2,6 +2,10 @@
 
 This is a Strichliste implementation.
 
+## Screenshots
+
+See [this file](./SCREENSHOTS.md) for screenshots.
+
 ## Developing
 
 Once you've installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
