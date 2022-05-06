@@ -31,8 +31,8 @@
     // if error, show error message
     else {
       const error = await response.json();
+      console.error(error);
       openModal(Error, { message: error.error });
-      console.log('error', error);
     }
   };
 </script>

@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation';
+  import { goto, invalidate } from '$app/navigation';
 
   import TransferTransactionComponent from '$lib/components/TransferTransaction.svelte';
 
   import type { TransferTransaction, User } from '$lib/db';
   import renderMoney from '$lib/renderMoney';
-  import { openModal } from 'svelte-modals';
+  import { closeAllModals, openModal } from 'svelte-modals';
   import ChooseUserToTransact from '$lib/components/modals/ChooseUserToTransact.svelte';
 
   import type { Requests } from './index';
   import Error from '$lib/components/modals/Error.svelte';
+  import Confirm from '$lib/components/modals/Confirm.svelte';
 
   export let user: User;
   export let transferTransactions: TransferTransaction[];
@@ -34,12 +35,62 @@
     await invalidate('');
   };
 
-  const transact = async (amount: number) => {
+  const transact = (amount: number) => {
     if (amount <= 0) {
       openModal(Error, { message: 'Amount must be positive' });
     } else {
       openModal(ChooseUserToTransact, { amount: amount, fromUser: user });
     }
+  };
+
+  const deleteUser = () => {
+    openModal(Confirm, {
+      message: `Are you sure you want to delete ${user.userName}?`,
+      labels: {
+        confirm: 'Yes',
+        cancel: 'No'
+      },
+      onConfirm: async () => {
+        openModal(Confirm, {
+          message: `Are you really sure you want to delete ${user.userName}?`,
+          labels: {
+            confirm: 'Yes',
+            cancel: 'No'
+          },
+          onConfirm: async () => {
+            openModal(Confirm, {
+              message: `Are you really really sure you want to delete ${user.userName}?`,
+              labels: {
+                confirm: 'Yes',
+                cancel: 'No'
+              },
+              onConfirm: async () => {
+                closeAllModals();
+                const request: Requests = {
+                  type: 'deleteUser',
+                  deleteUser: {}
+                };
+                const response = await fetch('', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                  },
+                  body: JSON.stringify(request)
+                });
+                if (response.status === 200) {
+                  await goto('/user');
+                } else {
+                  const error = await response.json();
+                  console.error(error);
+                  openModal(Error, { message: error.message });
+                }
+              }
+            });
+          }
+        });
+      }
+    });
   };
 </script>
 
@@ -82,6 +133,9 @@
       <button type="submit">Do it</button>
     </form>
   </div>
+</div>
+<div class="deleteUser">
+  <button on:click={deleteUser}>Delete account</button>
 </div>
 
 {#each transferTransactions as transferTransaction}

@@ -141,9 +141,7 @@ export class UserRepository {
       }
     })();
   }
-
   static changeBalance(userId: number, amount: number) {
-    console.log('changeBalance', userId, amount);
     // if amount negative, then it is a transfer from user to bank
     // if amount positive, then it is a transfer from bank to user
     if (amount > 0) {
@@ -151,5 +149,8 @@ export class UserRepository {
     } else {
       this.createTransaction(userId, null, -amount);
     }
+  }
+  static delete(userId: number) {
+    db.prepare('DELETE FROM User WHERE id = ?').run(userId);
   }
 }

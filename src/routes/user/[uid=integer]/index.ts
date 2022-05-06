@@ -27,7 +27,8 @@ export type Requests =
   | {
       type: 'createTransaction';
       createTransaction: { toUserId: number; amount: number };
-    };
+    }
+  | { type: 'deleteUser'; deleteUser: {} };
 
 export const post: RequestHandler = async ({ params, request }) => {
   const uid = parseInt(params.uid, 10);
@@ -47,7 +48,7 @@ export const post: RequestHandler = async ({ params, request }) => {
       try {
         UserRepository.createTransaction(uid, createTransaction.toUserId, createTransaction.amount);
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return {
           status: 500, // internal server error
           body: {
@@ -60,12 +61,15 @@ export const post: RequestHandler = async ({ params, request }) => {
           success: true
         }
       };
-    default:
+    case 'deleteUser':
+      UserRepository.delete(uid);
       return {
-        status: 400, // bad request
         body: {
-          error: 'invalid request'
+          success: true
         }
       };
+    default:
+      const exhaustiveCheck: never = body;
+      throw new Error(`Unhandled case: ${exhaustiveCheck}`);
   }
 };

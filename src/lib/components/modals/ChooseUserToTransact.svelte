@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { closeModal } from 'svelte-modals';
+  import { closeModal, openModal } from 'svelte-modals';
   import type { User } from '$lib/db';
   import { onMount } from 'svelte';
   import UserPreview from '../UserPreview.svelte';
@@ -7,6 +7,7 @@
   import renderMoney from '$lib/renderMoney';
   import { invalidate } from '$app/navigation';
   import assert from 'assert';
+  import Error from './Error.svelte';
 
   // provided by <Modals />
   export let isOpen: boolean;
@@ -46,10 +47,11 @@
     });
     if (response.status === 200) {
       closeModal();
-      invalidate('');
+      await invalidate('');
     } else {
       const error = await response.json();
-      console.log('error', error);
+      console.error(error);
+      openModal(Error, { message: error.message });
     }
   };
 </script>

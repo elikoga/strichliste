@@ -15,8 +15,8 @@ CREATE TABLE TransferTransaction (
   toUserId INTEGER,
   amount INTEGER NOT NULL CHECK (amount > 0),
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (fromUserId) REFERENCES User (id),
-  FOREIGN KEY (toUserId) REFERENCES User (id)
+  FOREIGN KEY (fromUserId) REFERENCES User (id) ON DELETE SET NULL,
+  FOREIGN KEY (toUserId) REFERENCES User (id) ON DELETE SET NULL
 );
 
 --------------------------------------------------------------------------------
