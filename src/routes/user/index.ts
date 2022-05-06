@@ -1,9 +1,8 @@
-import { userRepositoryPromise } from '$lib/db';
+import { UserRepository } from '$lib/db';
 import type { RequestHandler } from './index.d';
 
 export const get: RequestHandler = async ({}) => {
-  const userRepository = await userRepositoryPromise;
-  const users = await userRepository.getAll();
+  const users = UserRepository.getAll();
   return {
     body: {
       users
@@ -12,10 +11,9 @@ export const get: RequestHandler = async ({}) => {
 };
 
 export const post: RequestHandler = async ({ request }) => {
-  const userRepository = await userRepositoryPromise;
   const username = (await request.json()).username;
   // check if user exists
-  const user = await userRepository.getByName(username);
+  const user = UserRepository.getByName(username);
   if (user) {
     return {
       status: 400, // bad request
@@ -25,7 +23,7 @@ export const post: RequestHandler = async ({ request }) => {
     };
   }
   // create user
-  const uid = await userRepository.create(username);
+  const uid = UserRepository.create(username);
   return {
     body: {
       uid

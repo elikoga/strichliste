@@ -1,20 +1,19 @@
-import { userRepositoryPromise } from '$lib/db';
+import { UserRepository } from '$lib/db';
 import type { RequestHandler } from './index.d';
 
 export const get: RequestHandler = async ({ params }) => {
-  const userRepository = await userRepositoryPromise;
   const uid = parseInt(params.uid, 10);
-  const user = await userRepository.getById(uid);
+  const user = UserRepository.getById(uid);
   if (!user) {
     return {
-      status: 200, // not found
+      status: 404, // not found
       body: {
         error: 'user not found'
       }
     };
   }
   // also get the last 10 transactions for the user
-  const transferTransactions = await userRepository.getLast10Transactions(uid);
+  const transferTransactions = UserRepository.getLast10Transactions(uid);
   return {
     body: {
       user,
@@ -31,14 +30,13 @@ export type Requests =
     };
 
 export const post: RequestHandler = async ({ params, request }) => {
-  const userRepository = await userRepositoryPromise;
   const uid = parseInt(params.uid, 10);
   // parse request body
   const body = (await request.json()) as Requests;
   switch (body.type) {
     case 'changeBalance':
       const changeBalance = body.changeBalance;
-      await userRepository.changeBalance(uid, changeBalance.amount);
+      UserRepository.changeBalance(uid, changeBalance.amount);
       return {
         body: {
           success: true
@@ -47,11 +45,7 @@ export const post: RequestHandler = async ({ params, request }) => {
     case 'createTransaction':
       const createTransaction = body.createTransaction;
       try {
-        await userRepository.createTransaction(
-          uid,
-          createTransaction.toUserId,
-          createTransaction.amount
-        );
+        UserRepository.createTransaction(uid, createTransaction.toUserId, createTransaction.amount);
       } catch (e) {
         console.log(e);
         return {
