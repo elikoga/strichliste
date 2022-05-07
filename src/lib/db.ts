@@ -75,6 +75,39 @@ export const getLast10UserTransactions = (userId: number | null): TransferTransa
   });
 };
 
+export const getAllUserTransactions = (userId: number): TransferTransaction[] => {
+  const transactions = db
+    .prepare(
+      `
+    SELECT * FROM TransferTransaction
+    WHERE fromUserId = ? OR toUserId = ?
+    ORDER BY createdAt DESC
+    `
+    )
+    .all([userId, userId]);
+  const userIDs = [
+    ...new Set(
+      transactions.flatMap((t) => [
+        ...(t.fromUserId ? [t.fromUserId] : []),
+        ...(t.toUserId ? [t.toUserId] : [])
+      ])
+    )
+  ];
+  const placeholders = userIDs.map(() => `?`).join(',');
+  const users = db.prepare(`SELECT * FROM User WHERE id IN (${placeholders})`).all(userIDs);
+  const userMap = new Map<number, User>();
+  users.forEach((u) => userMap.set(u.id, u));
+  return transactions.map((t) => {
+    const fromUser = (t.fromUserId != null && userMap.get(t.fromUserId)) || null;
+    const toUser = (t.toUserId != null && userMap.get(t.toUserId)) || null;
+    return fixCreatedAt({
+      ...t,
+      fromUser,
+      toUser
+    });
+  });
+};
+
 export const createTransaction = (
   fromUserId: number | null,
   toUserId: number | null,

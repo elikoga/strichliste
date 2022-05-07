@@ -6,31 +6,51 @@
 
   import { createUser as createUserAPI } from '$lib/api';
 
-  import Error from './Error.svelte';
+  import Button from '../Button.svelte';
 
   // provided by <Modals />
   export let isOpen: boolean;
 
   let username: string;
   const createUser: svelte.JSX.EventHandler<SubmitEvent, HTMLFormElement> = async (_event) => {
+    console.log('Hi');
     try {
       const uid = await createUserAPI(username);
       closeModal();
       await goto(`/user/${uid}`);
     } catch (e: any) {
-      openModal(Error, { message: e });
+      error = e.message;
     }
   };
+
+  let error: string | undefined;
 </script>
 
-<BaseModal {isOpen}>
-  <h2>Create a user</h2>
-  <form on:submit|preventDefault={createUser} action="/user">
-    <input type="text" placeholder="Username" bind:value={username} />
+<BaseModal {isOpen} title="Create a user">
+  <form on:submit|preventDefault={createUser} id="createUserForm" action="/user">
+    <div class="form-group pb-6" class:errored={!!error}>
+      <div class="form-group-header">
+        <label for="username">Username</label>
+      </div>
+      <div class="form-group-body">
+        <input
+          type="text"
+          placeholder="Username"
+          id="username"
+          bind:value={username}
+          aria-describedby="username-input-validation"
+        />
+      </div>
+      {#if error}
+        <p class="note error" id="username-input-validation">
+          {error}
+        </p>
+      {/if}
+    </div>
 
-    <div class="actions">
-      <button type="submit">Create</button>
-      <button on:click={closeModal}>Cancel</button>
+    <div class="form-actions">
+      <Button class="btn-primary" type="submit" form="createUserForm">Create</Button>
+      <Button on:click={closeModal}>Cancel</Button>
     </div>
   </form>
 </BaseModal>

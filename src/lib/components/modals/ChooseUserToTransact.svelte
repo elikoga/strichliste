@@ -9,6 +9,7 @@
   import ErrorModal from './Error.svelte';
   import { createTransaction, getAllUsers } from '$lib/api';
   import type { User } from '$lib/types';
+  import Button from '../Button.svelte';
 
   // provided by <Modals />
   export let isOpen: boolean;
@@ -33,33 +34,28 @@
   };
 </script>
 
-<BaseModal {isOpen}>
-  <h2>{fromUser.userName} wants to sned {renderMoney(amount)} to whom?</h2>
-  <div class="users">
+<BaseModal {isOpen} title="{fromUser.userName} wants to sned {renderMoney(amount)} to whom?">
+  <div class="d-flex flex-wrap">
     {#each allUsers as user}
-      <button
+      <Button
+        class="col-3"
         on:click={() => {
           closeModal();
           send(user);
         }}
       >
         <UserPreview {user} />
-      </button>
+      </Button>
     {:else}
       <p>No other users to send to I cri evertiem</p>
     {/each}
   </div>
   <svelte:fragment slot="actions">
-    <button on:click={closeModal}>Cancel</button>
+    <Button on:click={closeModal}>Cancel</Button>
   </svelte:fragment>
 </BaseModal>
 
 <style>
-  h2 {
-    text-align: center;
-    font-size: 24px;
-  }
-
   p {
     text-align: center;
     margin-top: 16px;

@@ -43,6 +43,7 @@ export const createTransaction = async (fromUserId: number, toUserId: number, am
 };
 
 export const createUser = async (username: string) => {
+  assert(username, 'Username must be set');
   const response = await fetch('/user', {
     method: 'POST',
     headers: {
@@ -62,6 +63,7 @@ export const createUser = async (username: string) => {
 };
 
 export const changeUserBalance = async (uid: number, amount: number) => {
+  assert(amount !== 0, 'Amount must not be 0');
   const request: Requests = {
     type: 'changeBalance',
     changeBalance: {

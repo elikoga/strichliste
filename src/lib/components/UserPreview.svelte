@@ -1,10 +1,12 @@
 <script lang="ts">
-  import type { User } from '$lib/db';
   import renderMoney from '$lib/renderMoney';
+  import type { User } from '$lib/types';
   export let user: User;
 </script>
 
 <div class="user">
-  <h2>{user.userName}</h2>
+  <div class="Truncate">
+    <p class="Truncate-text h3">{user.userName}</p>
+  </div>
   <p>{renderMoney(user.balance)}</p>
 </div>
