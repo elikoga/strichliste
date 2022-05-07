@@ -4,10 +4,7 @@ import { migrate } from './dbMigrate';
 import type { TransferTransaction, User } from './types';
 
 const db = (() => {
-  const db = sqlite(
-    './strichliste.db'
-    //{ verbose: console.log }
-  );
+  const db = sqlite('./strichliste.db', { verbose: console.log });
   // migrate
   migrate(db, { reapplyLast: false });
   return db;
@@ -125,5 +122,11 @@ export const changeUserBalance = (userId: number, amount: number) => {
 };
 
 export const deleteUser = (userId: number) => {
-  db.prepare('DELETE FROM User WHERE id = ?').run(userId);
+  db.transaction(() => {
+    db.prepare('DELETE FROM User WHERE id = ?').run(userId);
+    // delete transactions where from and to is null
+    db.prepare(
+      'DELETE FROM TransferTransaction WHERE fromUserId IS NULL AND toUserId IS NULL'
+    ).run();
+  })();
 };

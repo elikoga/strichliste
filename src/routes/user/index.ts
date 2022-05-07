@@ -1,4 +1,5 @@
 import { createUser, getAllUsers, getUserByName } from '$lib/db';
+import assert from 'assert';
 import type { RequestHandler } from './index.d';
 
 export const get: RequestHandler = async ({}) => {
@@ -12,6 +13,14 @@ export const get: RequestHandler = async ({}) => {
 
 export const post: RequestHandler = async ({ request }) => {
   const username = (await request.json()).username;
+  if (!username) {
+    return {
+      status: 400, // bad request
+      body: {
+        error: 'username is required'
+      }
+    };
+  }
   // check if user exists
   const user = getUserByName(username);
   if (user) {
