@@ -87,7 +87,10 @@ export const changeUserBalance = async (uid: number, amount: number) => {
 
 export const deleteUser = async (uid: number) => {
   const response = await fetch(`/user/${uid}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json'
+    }
   });
   if (!response.ok) {
     const error = await response.json();
@@ -95,5 +98,4 @@ export const deleteUser = async (uid: number) => {
     throw new Error(error.error);
   }
   await invalidate('/user');
-  await invalidate(`/user/${uid}`);
 };
