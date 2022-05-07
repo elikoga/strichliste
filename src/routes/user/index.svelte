@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { User } from '$lib/db';
   import UserPreview from '$lib/components/UserPreview.svelte';
   import { openModal } from 'svelte-modals';
   import CreateUser from '$lib/components/modals/CreateUser.svelte';
+  import type { User } from '$lib/types';
 
   export let users: User[];
   // sort by user.balance

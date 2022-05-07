@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { goto, invalidate } from '$app/navigation';
+  import { goto } from '$app/navigation';
 
   import TransferTransactionComponent from '$lib/components/TransferTransaction.svelte';
 
-  import type { TransferTransaction, User } from '$lib/db';
   import renderMoney from '$lib/renderMoney';
   import { closeAllModals, openModal } from 'svelte-modals';
   import ChooseUserToTransact from '$lib/components/modals/ChooseUserToTransact.svelte';
@@ -11,29 +10,13 @@
   import type { Requests } from './index';
   import Error from '$lib/components/modals/Error.svelte';
   import Confirm from '$lib/components/modals/Confirm.svelte';
+  import type { TransferTransaction, User } from '$lib/types';
+  import { changeUserBalance, deleteUser as deleteUserAPI } from '$lib/api';
 
   export let user: User;
   export let transferTransactions: TransferTransaction[];
 
   const moneyValues = [1, 5, 10, 50, 100, 500];
-
-  const changeBalance = async (delta: number) => {
-    const request: Requests = {
-      type: 'changeBalance',
-      changeBalance: {
-        amount: delta
-      }
-    };
-    await fetch('', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(request)
-    });
-    await invalidate('');
-  };
 
   const transact = (amount: number) => {
     if (amount <= 0) {
@@ -66,24 +49,11 @@
               },
               onConfirm: async () => {
                 closeAllModals();
-                const request: Requests = {
-                  type: 'deleteUser',
-                  deleteUser: {}
-                };
-                const response = await fetch('', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                  },
-                  body: JSON.stringify(request)
-                });
-                if (response.status === 200) {
-                  await goto('/user');
-                } else {
-                  const error = await response.json();
-                  console.error(error);
-                  openModal(Error, { message: error.message });
+                try {
+                  await deleteUserAPI(user.id);
+                  goto('/user');
+                } catch (e: any) {
+                  openModal(Error, { message: e.message });
                 }
               }
             });
@@ -100,13 +70,15 @@
   <p>Modify your account</p>
   <div class="negative">
     {#each [...moneyValues].reverse() as moneyValue}
-      <button on:click={() => changeBalance(-moneyValue)}>{renderMoney(-moneyValue)}</button>
+      <button on:click={() => changeUserBalance(user.id, -moneyValue)}
+        >{renderMoney(-moneyValue)}</button
+      >
     {/each}
   </div>
   <div class="customBalance">
     <form
       on:submit|preventDefault={(event) =>
-        changeBalance(Number(event.currentTarget?.delta.value) * 100)}
+        changeUserBalance(user.id, Number(event.currentTarget?.delta.value) * 100)}
     >
       <input name="delta" type="number" step="0.01" />
       <span>€</span>
@@ -115,7 +87,9 @@
   </div>
   <div class="positive">
     {#each moneyValues as moneyValue}
-      <button on:click={() => changeBalance(moneyValue)}>{renderMoney(moneyValue)}</button>
+      <button on:click={() => changeUserBalance(user.id, moneyValue)}
+        >{renderMoney(moneyValue)}</button
+      >
     {/each}
   </div>
   <p>Or pay money to someone else:</p>
