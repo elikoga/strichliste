@@ -63,7 +63,9 @@
       "actionMessage": "Transferred",
       "askForValue": "How much do you want to transfer?"
     },
-    "header": "User: {username}"
+    "header": "User: {username}",
+    "create": "Create a user",
+    "username": "Username"
   },
   "yes": "Yes",
   "users": {

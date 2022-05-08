@@ -5,6 +5,7 @@
   import { createUser as createUserAPI } from '$lib/api';
 
   import Button from '../Button.svelte';
+  import { _ } from 'svelte-i18n';
 
   // provided by <Modals />
   export let isOpen: boolean;
@@ -25,16 +26,16 @@
   let error: string | undefined;
 </script>
 
-<BaseModal {isOpen} title="Create a user">
+<BaseModal {isOpen} title={$_('user.create')}>
   <form on:submit|preventDefault={createUser} id="createUserForm" action="/user">
     <div class="form-group pb-6" class:errored={!!error}>
       <div class="form-group-header">
-        <label for="username">Username</label>
+        <label for="username">{$_('user.username')}</label>
       </div>
       <div class="form-group-body">
         <input
           type="text"
-          placeholder="Username"
+          placeholder={$_('user.username')}
           id="username"
           bind:value={username}
           aria-describedby="username-input-validation"
@@ -48,8 +49,8 @@
     </div>
 
     <div class="form-actions">
-      <Button class="btn-primary" type="submit" form="createUserForm">Create</Button>
-      <Button on:click={closeModal}>Cancel</Button>
+      <Button class="btn-primary" type="submit" form="createUserForm">{$_('user.create')}</Button>
+      <Button on:click={closeModal}>{$_('button.cancel')}</Button>
     </div>
   </form>
 </BaseModal>

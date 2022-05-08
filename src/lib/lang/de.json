@@ -20,7 +20,9 @@
       "actionMessage": "Überweisen"
     },
     "transactions": "Transaktionen von \"{username}\"",
-    "header": "Benutzer: {username}"
+    "header": "Benutzer: {username}",
+    "create": "Benutzer erstellen",
+    "username": "Benutzername"
   },
   "amountHasToBePositive": "Betrag muss positiv sein",
   "yes": "Ja",

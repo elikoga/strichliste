@@ -84,7 +84,7 @@
     {/await}
   </div>
   <svelte:fragment slot="actions">
-    <Button on:click={closeModal}>Cancel</Button>
+    <Button on:click={closeModal}>{$_('button.cancel')}</Button>
   </svelte:fragment>
 </BaseModal>
 
