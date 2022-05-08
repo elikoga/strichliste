@@ -1,0 +1,61 @@
+{
+  "users": "Benutzer",
+  "user": {
+    "404": "404: Kein Benutzer gefunden",
+    "delete": {
+      "confirm1": "Bist du dir sicher, dass du \"{username}\" löschen willst?",
+      "confirm2": "Bist du dir wirklich sicher, dass du \"{username}\" löschen willst?",
+      "confirm3": "Bist du dir wirklich sicher, dass du \"{username}\" löschen willst? Diese Aktion ist nicht rückgängig zu machen.",
+      "button": "Benutzer löschen"
+    },
+    "charge": {
+      "askForValue": "Um wieviel möchtest du dein Konto aufladen?",
+      "actionMessage": "Aufladen"
+    },
+    "pay": {
+      "askForValue": "Wieviel möchtest du bezahlen?",
+      "actionMessage": "Bezahlen"
+    },
+    "transfer": {
+      "askForValue": "Wieviel möchtest du überweisen?",
+      "actionMessage": "Überweisen"
+    },
+    "transactions": "Transaktionen von {username}"
+  },
+  "amountHasToBePositive": "Betrag muss positiv sein",
+  "yes": "Ja",
+  "no": "Nein",
+  "title": {
+    "user": "Strichliste - Benutzer - {username}",
+    "users": "Benutzer"
+  },
+  "header": {
+    "user": "Benutzer: {username}"
+  },
+  "subhead": {
+    "charge": "Lade dein Konto auf",
+    "pay": "Was du bezahlen musst",
+    "transfer": "An andere Benutzer überweisen",
+    "delete": "Benutzer löschen",
+    "last10Transactions": "Letzte 10 Transaktionen",
+    "users": "Benutzer",
+    "createUser": "Benutzer erstellen"
+  },
+  "showAllTransactions": "alle anzeigen",
+  "button": {
+    "createUser": "Benutzer erstellen"
+  },
+  "transaction": {
+    "id": "ID",
+    "amount": "Betrag",
+    "fromUser": "Von",
+    "toUser": "An",
+    "createdAt": "Erstellt"
+  },
+  "fluff": {
+    "whatIsThis": {
+      "title": "Was ist das?",
+      "text": "<p>Strichliste ist ein kleines Programm, das es einer Gruppe von Benutzern erleichtert, sich zum Beispiel zu merken wieviel man in eine Getränkekasse getan hat.</p><p>Am schnellsten kommst du hiermit eigentlich voran, indem du auf <a href=\"/user\">die Benutzerseite</a> gehst und dir einen Benutzer erstellst.</p>\n"
+    }
+  }
+}

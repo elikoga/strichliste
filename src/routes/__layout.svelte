@@ -1,9 +1,24 @@
-<script>
+<script lang="ts" context="module">
+  import { waitLocale } from 'svelte-i18n';
+  import '$lib/i18n';
+
+  export const load: Load = async ({}) => {
+    await waitLocale();
+    return {};
+  };
+</script>
+
+<script lang="ts">
   import '@primer/css/index.scss';
+
+  import '$lib/i18n';
 
   import { Modals, closeModal } from 'svelte-modals';
 
+  import { _ } from 'svelte-i18n';
+
   import MarkGithub16 from 'svelte-octicons/lib/MarkGithub16.svelte';
+  import type { Load } from '@sveltejs/kit';
 </script>
 
 <Modals>
@@ -21,7 +36,7 @@
     <a class="Header-link" href="/">Strichliste</a>
   </div>
   <div class="Header-item">
-    <a class="Header-link" href="/user">Users</a>
+    <a class="Header-link" href="/user">{$_('users')}</a>
   </div>
   <div class="Header-item">
     <a class="Header-link" href="https://github.com/elikoga/strichliste"><MarkGithub16 /> </a>

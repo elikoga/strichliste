@@ -7,14 +7,16 @@
   import { html } from 'gridjs';
   import 'gridjs/dist/theme/mermaid.css';
 
+  import { _ } from 'svelte-i18n';
+
   export let transferTransactions: TransferTransaction[];
 
   const columns: UserConfig['columns'] = [
-    { id: 'id', name: 'ID' },
-    { id: 'amount', name: 'Amount', formatter: renderMoney },
+    { id: 'id', name: $_('transaction.id') },
+    { id: 'amount', name: $_('transaction.amount'), formatter: renderMoney },
     {
       id: 'fromUser',
-      name: 'From',
+      name: $_('transaction.fromUser'),
       formatter: (user) => {
         // if user is string, just return it
         if (typeof user === 'string') {
@@ -32,7 +34,7 @@
     },
     {
       id: 'toUser',
-      name: 'To',
+      name: $_('transaction.toUser'),
       formatter: (user) => {
         // if user is string, just return it
         if (typeof user === 'string') {
@@ -50,7 +52,7 @@
     },
     {
       id: 'createdAt',
-      name: 'Created At',
+      name: $_('transaction.createdAt'),
       formatter: (createdAt) => {
         assert(typeof createdAt === 'string', `createdAt is not a string`);
         return new Date(createdAt).toLocaleString();

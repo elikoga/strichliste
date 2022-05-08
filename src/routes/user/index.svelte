@@ -6,6 +6,8 @@
   import Button from '$lib/components/Button.svelte';
   import PersonAdd16 from 'svelte-octicons/lib/PersonAdd16.svelte';
 
+  import { _ } from 'svelte-i18n';
+
   export let users: User[];
   // sort by user.balance
   users = users.sort((a, b) => b.balance - a.balance);
@@ -16,11 +18,11 @@
 </script>
 
 <svelte:head>
-  <title>Strichliste - User</title>
+  <title>{$_('title.users')}</title>
 </svelte:head>
 
 <div class="Subhead">
-  <h2 class="Subhead-heading ">User</h2>
+  <h2 class="Subhead-heading ">{$_('subhead.users')}</h2>
 </div>
 
 <ul class="list-style-none d-flex flex-wrap">
@@ -32,10 +34,10 @@
 </ul>
 
 <div class="Subhead">
-  <h2 class="Subhead-heading ">User erstellen</h2>
+  <h2 class="Subhead-heading ">{$_('subhead.createUser')}</h2>
 </div>
 
 <Button class="ml-2 mt-2 btn-primary" on:click={() => createUser()}>
   <PersonAdd16 />
-  <span>Create User</span>
+  <span>{$_('button.createUser')}</span>
 </Button>

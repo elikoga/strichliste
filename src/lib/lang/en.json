@@ -1,0 +1,61 @@
+{
+  "users": "Users",
+  "amountHasToBePositive": "Amount must be positive",
+  "button": {
+    "createUser": "Create user"
+  },
+  "fluff": {
+    "whatIsThis": {
+      "text": "<p>Strichliste is a small program that makes it easier for a group of users to remember, for example, how much they put in a drinks register.</p><p>The fastest way to get started with this is to go to <a href=\"/user\">the users page</a> and create a user.</p>\n",
+      "title": "What is this?"
+    }
+  },
+  "header": {
+    "user": "User: {username}"
+  },
+  "no": "No",
+  "showAllTransactions": "view all",
+  "subhead": {
+    "charge": "Top up your account",
+    "createUser": "Create user",
+    "delete": "Delete user",
+    "last10Transactions": "Last 10 transactions",
+    "pay": "What you have to pay",
+    "transfer": "Transfer to other users",
+    "users": "Users"
+  },
+  "title": {
+    "user": "Tally - User - {username}",
+    "users": "Users"
+  },
+  "transaction": {
+    "amount": "Amount",
+    "createdAt": "Created at",
+    "fromUser": "From",
+    "id": "ID",
+    "toUser": "To"
+  },
+  "user": {
+    "404": "404: No user found",
+    "charge": {
+      "actionMessage": "Top up",
+      "askForValue": "How much would you like to top up your account?"
+    },
+    "delete": {
+      "button": "Delete user",
+      "confirm1": "Are you sure you want to delete \"{username}\"?",
+      "confirm2": "Are you sure you want to delete \"{username}\"?",
+      "confirm3": "Are you sure you want to delete \"{username}\"? \nThis action cannot be undone."
+    },
+    "pay": {
+      "actionMessage": "Pay",
+      "askForValue": "How much do you want to pay"
+    },
+    "transactions": "Transactions by {username}",
+    "transfer": {
+      "actionMessage": "Transferred",
+      "askForValue": "How much do you want to transfer?"
+    }
+  },
+  "yes": "Yes"
+}

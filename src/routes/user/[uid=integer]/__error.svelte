@@ -1,1 +1,5 @@
-<h1>404: No User found</h1>
+<script lang="ts">
+  import { _ } from 'svelte-i18n';
+</script>
+
+<h1>{$_('user.404')}</h1>
