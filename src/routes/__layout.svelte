@@ -43,7 +43,7 @@
   </div>
 </header>
 
-<div class="container-lg mt-4">
+<div class="container-lg mt-4 pl-xl-0 pr-xl-0 pl-3 pr-3">
   <slot />
 </div>
 

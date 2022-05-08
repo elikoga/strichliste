@@ -151,8 +151,18 @@
       <h2 class="Subhead-heading ">{$_('subhead.delete')}</h2>
     </div>
     <Button class="btn-danger" on:click={deleteUser}>{$_('user.delete.button')}</Button>
+    <div class="d-block d-sm-none Layout-sidebar">
+      <div class="Subhead">
+        <h2 class="Subhead-heading ">
+          {$_('subhead.last5Transactions')} (<a href="/user/{user.id}/transactions"
+            >{$_('showAllTransactions')}</a
+          >)
+        </h2>
+      </div>
+      <TransferTransactionList {transferTransactions} />
+    </div>
   </div>
-  <div class="Layout-sidebar">
+  <div class="d-none d-sm-block Layout-sidebar">
     <div class="Subhead">
       <h2 class="Subhead-heading ">
         {$_('subhead.last5Transactions')} (<a href="/user/{user.id}/transactions"
