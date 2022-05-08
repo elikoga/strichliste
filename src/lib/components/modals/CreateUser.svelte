@@ -34,6 +34,7 @@
       </div>
       <div class="form-group-body">
         <input
+          class="form-control"
           type="text"
           placeholder={$_('user.username')}
           id="username"

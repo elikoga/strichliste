@@ -33,6 +33,7 @@
       </div>
       <div class="form-group-body">
         <input
+          class="form-control"
           type="number"
           placeholder={$_('transaction.amount')}
           id="amount"
