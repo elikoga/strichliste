@@ -82,7 +82,7 @@
 
 <div class="d-flex">
   <!-- <h1 class="col-6">User: "{user.userName}"</h1> -->
-  <h1 class="col-6">{$_('header.user', { values: { username: user.userName } })}</h1>
+  <h1 class="col-6">{$_('user.header', { values: { username: user.userName } })}</h1>
   <span class="col-6 f1 text-right flex-self-end text-emphasized text-underline">
     {renderMoney(user.balance)}
   </span>
@@ -155,7 +155,7 @@
   <div class="Layout-sidebar">
     <div class="Subhead">
       <h2 class="Subhead-heading ">
-        {$_('subhead.last10Transactions')} (<a href="/user/{user.id}/transactions"
+        {$_('subhead.last5Transactions')} (<a href="/user/{user.id}/transactions"
           >{$_('showAllTransactions')}</a
         >)
       </h2>

@@ -1,5 +1,4 @@
 {
-  "users": "Benutzer",
   "user": {
     "404": "404: Kein Benutzer gefunden",
     "delete": {
@@ -20,7 +19,8 @@
       "askForValue": "Wieviel möchtest du überweisen?",
       "actionMessage": "Überweisen"
     },
-    "transactions": "Transaktionen von {username}"
+    "transactions": "Transaktionen von {username}",
+    "header": "Benutzer: {username}"
   },
   "amountHasToBePositive": "Betrag muss positiv sein",
   "yes": "Ja",
@@ -30,32 +30,40 @@
     "users": "Benutzer"
   },
   "header": {
-    "user": "Benutzer: {username}"
+    "user": "Benutzer"
   },
   "subhead": {
     "charge": "Lade dein Konto auf",
     "pay": "Was du bezahlen musst",
     "transfer": "An andere Benutzer überweisen",
     "delete": "Benutzer löschen",
-    "last10Transactions": "Letzte 10 Transaktionen",
     "users": "Benutzer",
-    "createUser": "Benutzer erstellen"
+    "createUser": "Benutzer erstellen",
+    "last5Transactions": "Letzte 5 Transaktionen"
   },
   "showAllTransactions": "alle anzeigen",
   "button": {
-    "createUser": "Benutzer erstellen"
+    "createUser": "Benutzer erstellen",
+    "cancel": "Abbrechen"
   },
   "transaction": {
     "id": "ID",
     "amount": "Betrag",
     "fromUser": "Von",
     "toUser": "An",
-    "createdAt": "Erstellt"
+    "createdAt": "Erstellt",
+    "send": "An wen will \"{username}\" {amount} senden?",
+    "fromNull": "Eingezahlt",
+    "toNull": "Bezahlt"
   },
   "fluff": {
     "whatIsThis": {
       "title": "Was ist das?",
       "text": "<p>Strichliste ist ein kleines Programm, das es einer Gruppe von Benutzern erleichtert, sich zum Beispiel zu merken wieviel man in eine Getränkekasse getan hat.</p><p>Am schnellsten kommst du hiermit eigentlich voran, indem du auf <a href=\"/user\">die Benutzerseite</a> gehst und dir einen Benutzer erstellst.</p>\n"
     }
+  },
+  "users": {
+    "noUsers": "Es gibt wohl noch keine Benutzer.",
+    "noUsersDescription": "Du kannst einen Benutzer mit dem Knopf erstellen."
   }
 }

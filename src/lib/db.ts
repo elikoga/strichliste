@@ -37,21 +37,37 @@ export const getUserById = (userId: number): User | undefined => {
 };
 
 export const getAllUsers = (): User[] => {
-  const users = db.prepare('SELECT * FROM User').all() as User[];
+  const users = db
+    .prepare(
+      `
+    SELECT * FROM User
+    ORDER BY balance DESC
+    `
+    )
+    .all() as User[];
   return users.map((u) => fixCreatedAt(u));
 };
 
-export const getLast10UserTransactions = (userId: number | null): TransferTransaction[] => {
+export const getAllUsersWithIds = (ids: number[]): User[] => {
+  const placeholders = ids.map(() => `?`).join(',');
+  const users = db.prepare(`SELECT * FROM User WHERE id IN (${placeholders})`).all(ids);
+  return users.map((u) => fixCreatedAt(u));
+};
+
+export const getLastNUserTransactions = (
+  userId: number | null,
+  limit: number = 10
+): TransferTransaction[] => {
   const transactions = db
     .prepare(
       `
     SELECT * FROM TransferTransaction
     WHERE fromUserId = ? OR toUserId = ?
     ORDER BY createdAt DESC
-    LIMIT 10
+    LIMIT ?
     `
     )
-    .all([userId, userId]);
+    .all([userId, userId, limit]);
   const userIDs = [
     ...new Set(
       transactions.flatMap((t) => [
@@ -60,8 +76,7 @@ export const getLast10UserTransactions = (userId: number | null): TransferTransa
       ])
     )
   ];
-  const placeholders = userIDs.map(() => `?`).join(',');
-  const users = db.prepare(`SELECT * FROM User WHERE id IN (${placeholders})`).all(userIDs);
+  const users = getAllUsersWithIds(userIDs);
   const userMap = new Map<number, User>();
   users.forEach((u) => userMap.set(u.id, u));
   return transactions.map((t) => {
@@ -93,8 +108,7 @@ export const getAllUserTransactions = (userId: number): TransferTransaction[] =>
       ])
     )
   ];
-  const placeholders = userIDs.map(() => `?`).join(',');
-  const users = db.prepare(`SELECT * FROM User WHERE id IN (${placeholders})`).all(userIDs);
+  const users = getAllUsersWithIds(userIDs);
   const userMap = new Map<number, User>();
   users.forEach((u) => userMap.set(u.id, u));
   return transactions.map((t) => {

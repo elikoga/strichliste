@@ -3,6 +3,8 @@
   import Button from '../Button.svelte';
   import BaseModal from './BaseModal.svelte';
 
+  import { _ } from 'svelte-i18n';
+
   // provided by <Modals />
   export let isOpen: boolean;
 
@@ -27,12 +29,12 @@
   <form on:submit|preventDefault={onSubmit} id="amountForm" action="/user">
     <div class="form-group pb-6" class:errored={!!error}>
       <div class="form-group-header">
-        <label for="amount">Amount</label>
+        <label for="amount">{$_('transaction.amount')}</label>
       </div>
       <div class="form-group-body">
         <input
           type="number"
-          placeholder="Amount"
+          placeholder={$_('transaction.amount')}
           id="amount"
           min="0"
           step="0.01"
@@ -49,7 +51,7 @@
 
     <div class="form-actions">
       <Button class="btn-primary" type="submit" form="amountForm">{actionMessage}</Button>
-      <Button on:click={closeModal}>Cancel</Button>
+      <Button on:click={closeModal}>{$_('button.cancel')}</Button>
     </div>
   </form>
 </BaseModal>

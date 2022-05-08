@@ -2,7 +2,7 @@ import {
   changeUserBalance,
   createTransaction,
   deleteUser,
-  getLast10UserTransactions,
+  getLastNUserTransactions,
   getUserById
 } from '$lib/db';
 import type { RequestHandler } from './index.d';
@@ -19,7 +19,7 @@ export const get: RequestHandler = async ({ params }) => {
     };
   }
   // also get the last 10 transactions for the user
-  const transferTransactions = getLast10UserTransactions(uid);
+  const transferTransactions = getLastNUserTransactions(uid, 5);
   return {
     body: {
       user,

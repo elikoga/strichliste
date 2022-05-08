@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { goto, invalidate } from '$app/navigation';
 
   import { closeModal, openModal } from 'svelte-modals';
   import BaseModal from './BaseModal.svelte';
@@ -12,12 +12,13 @@
   export let isOpen: boolean;
 
   let username: string;
+  export let next: (uid: number) => void;
   const createUser: svelte.JSX.EventHandler<SubmitEvent, HTMLFormElement> = async (_event) => {
     console.log('Hi');
     try {
       const uid = await createUserAPI(username);
       closeModal();
-      await goto(`/user/${uid}`);
+      next(uid);
     } catch (e: any) {
       error = e.message;
     }

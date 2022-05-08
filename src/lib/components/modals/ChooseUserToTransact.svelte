@@ -7,9 +7,14 @@
   import renderMoney from '$lib/renderMoney';
   import assert from 'assert';
   import ErrorModal from './Error.svelte';
-  import { createTransaction, getAllUsers } from '$lib/api';
+  import { createTransaction, getAllUsers, getUserById } from '$lib/api';
   import type { User } from '$lib/types';
   import Button from '../Button.svelte';
+
+  import { _ } from 'svelte-i18n';
+  import People24 from 'svelte-octicons/lib/People24.svelte';
+  import PersonAdd16 from 'svelte-octicons/lib/PersonAdd16.svelte';
+  import CreateUser from './CreateUser.svelte';
 
   // provided by <Modals />
   export let isOpen: boolean;
@@ -18,11 +23,9 @@
   export let fromUser: User;
   assert(amount > 0, 'Amount must be positive');
 
-  let allUsers: User[] = [];
-
-  onMount(async () => {
-    allUsers = (await getAllUsers()).filter((user) => user.id !== fromUser.id);
-  });
+  let allUsersPromise: Promise<User[]> = getAllUsers().then((users) =>
+    users.filter((user) => user.id !== fromUser.id)
+  );
 
   const send = async (toUser: User) => {
     try {
@@ -32,23 +35,54 @@
       openModal(ErrorModal, { message: e.message });
     }
   };
+
+  const createUser = () => {
+    openModal(CreateUser, {
+      next: async (uid) => {
+        const user = await getUserById(uid);
+        assert(user, 'User not found');
+        send(user);
+      }
+    });
+  };
 </script>
 
-<BaseModal {isOpen} title="{fromUser.userName} wants to sned {renderMoney(amount)} to whom?">
+<BaseModal
+  {isOpen}
+  title={$_('transaction.send', {
+    values: { username: fromUser.userName, amount: renderMoney(amount) }
+  })}
+>
   <div class="d-flex flex-wrap">
-    {#each allUsers as user}
-      <Button
-        class="col-3"
-        on:click={() => {
-          closeModal();
-          send(user);
-        }}
-      >
-        <UserPreview {user} />
-      </Button>
-    {:else}
-      <p>No other users to send to I cri evertiem</p>
-    {/each}
+    {#await allUsersPromise}
+      <span>Loading</span><span class="AnimatedEllipsis" />
+    {:then allUsers}
+      {#each allUsers as user}
+        <Button
+          class="flex-auto"
+          on:click={() => {
+            closeModal();
+            send(user);
+          }}
+        >
+          <UserPreview {user} />
+        </Button>
+      {:else}
+        <div class="blankslate">
+          <People24 class="blankslate-image" />
+          <h3 class="blankslate-heading">{$_('users.noUsers')}</h3>
+          <p>
+            {$_('users.noUsersDescription')}
+          </p>
+          <div class="blankslate-action">
+            <Button class="ml-2 mt-2 btn-primary" on:click={createUser}>
+              <PersonAdd16 />
+              <span>{$_('button.createUser')}</span>
+            </Button>
+          </div>
+        </div>
+      {/each}
+    {/await}
   </div>
   <svelte:fragment slot="actions">
     <Button on:click={closeModal}>Cancel</Button>

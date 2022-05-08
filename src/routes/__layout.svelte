@@ -36,7 +36,7 @@
     <a class="Header-link" href="/">Strichliste</a>
   </div>
   <div class="Header-item">
-    <a class="Header-link" href="/user">{$_('users')}</a>
+    <a class="Header-link" href="/user">{$_('header.user')}</a>
   </div>
   <div class="Header-item">
     <a class="Header-link" href="https://github.com/elikoga/strichliste"><MarkGithub16 /> </a>

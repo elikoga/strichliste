@@ -12,6 +12,16 @@ export const getAllUsers = async () => {
   return (await response.json()).users as User[];
 };
 
+export const getUserById = async (uid: number) => {
+  const response = await fetch(`/user/${uid}`, {
+    headers: {
+      Accept: 'application/json'
+    }
+  });
+
+  return (await response.json()).user as User;
+};
+
 export const createTransaction = async (fromUserId: number, toUserId: number, amount: number) => {
   assert(amount > 0, 'Amount must be greater than 0');
   assert(fromUserId !== toUserId, 'You cannot transfer money to yourself');
@@ -59,7 +69,10 @@ export const createUser = async (username: string) => {
     console.error(error);
     throw new Error(error.error);
   }
-  return (await response.json()).uid as number;
+  const uid = (await response.json()).uid as number;
+  await invalidate('/user');
+  await invalidate(`/user/${uid}`);
+  return uid;
 };
 
 export const changeUserBalance = async (uid: number, amount: number) => {

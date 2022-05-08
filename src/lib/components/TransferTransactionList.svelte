@@ -22,7 +22,7 @@
         if (typeof user === 'string') {
           return user;
         } else if (user === null) {
-          return html('<b>Deposited</b>');
+          return html(`<b>${$_('transaction.fromNull')}</b>`);
         } else {
           // assert it's a User, so it has a userName
           assert(typeof user === 'object', `User is not an object`);
@@ -40,7 +40,7 @@
         if (typeof user === 'string') {
           return user;
         } else if (user === null) {
-          return html('<b>Paid</b>');
+          return html(`<b>${$_('transaction.toNull')}</b>`);
         } else {
           // assert it's a User, so it has a userName
           assert(typeof user === 'object', `User is not an object`);
