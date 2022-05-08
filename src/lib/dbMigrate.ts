@@ -96,7 +96,7 @@ const syncDatabaseMigrations = (db: Database, table: string, is_valid: (id: numb
  */
 const getDefaultParams = () => ({
   table: '_meta_migrations',
-  migrationsDirectory: 'migrations',
+  migrationsDirectory: import.meta.env.VITE_MIGRATIONS_DIR ?? 'migrations',
   reapplyLast: true
 });
 
