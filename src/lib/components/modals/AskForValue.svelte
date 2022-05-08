@@ -9,7 +9,7 @@
   export let isOpen: boolean;
 
   export let message: string;
-  export let actionMessage: string = 'Ok';
+  export let actionMessage = 'Ok';
 
   export let error: string | undefined = undefined;
 

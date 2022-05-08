@@ -1,8 +1,7 @@
 import { createUser, getAllUsers, getUserByName } from '$lib/db';
-import assert from 'assert';
 import type { RequestHandler } from './index.d';
 
-export const get: RequestHandler = async ({}) => {
+export const get: RequestHandler = async () => {
   const users = getAllUsers();
   return {
     body: {

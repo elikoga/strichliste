@@ -2,7 +2,6 @@
   import BaseModal from './BaseModal.svelte';
 
   import { closeModal, openModal } from 'svelte-modals';
-  import { onMount } from 'svelte';
   import UserPreview from '../UserPreview.svelte';
   import renderMoney from '$lib/renderMoney';
   import assert from 'assert';

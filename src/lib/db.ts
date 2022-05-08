@@ -56,7 +56,7 @@ export const getAllUsersWithIds = (ids: number[]): User[] => {
 
 export const getLastNUserTransactions = (
   userId: number | null,
-  limit: number = 10
+  limit = 10
 ): TransferTransaction[] => {
   const transactions = db
     .prepare(

@@ -19,7 +19,7 @@
       "askForValue": "Wieviel möchtest du überweisen?",
       "actionMessage": "Überweisen"
     },
-    "transactions": "Transaktionen von {username}",
+    "transactions": "Transaktionen von \"{username}\"",
     "header": "Benutzer: {username}"
   },
   "amountHasToBePositive": "Betrag muss positiv sein",
@@ -60,6 +60,10 @@
     "whatIsThis": {
       "title": "Was ist das?",
       "text": "<p>Strichliste ist ein kleines Programm, das es einer Gruppe von Benutzern erleichtert, sich zum Beispiel zu merken wieviel man in eine Getränkekasse getan hat.</p><p>Am schnellsten kommst du hiermit eigentlich voran, indem du auf <a href=\"/user\">die Benutzerseite</a> gehst und dir einen Benutzer erstellst.</p>\n"
+    },
+    "iWantAFeature": {
+      "title": "Ich möchte ein Feature!",
+      "text": "<p>Am besten schaust du dann bei unserem <a href=\"https://github.com/elikoga/strichliste\">GitHub Repository</a> vorbei.</p>"
     }
   },
   "users": {

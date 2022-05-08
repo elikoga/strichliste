@@ -8,6 +8,10 @@
     "whatIsThis": {
       "text": "<p>Strichliste is a small program that makes it easier for a group of users to remember, for example, how much they put in a drinks register.</p><p>The fastest way to get started with this is to go to <a href=\"/user\">the users page</a> and create a user.</p>\n",
       "title": "What is this?"
+    },
+    "iWantAFeature": {
+      "text": "<p>Then it's best to have a look at our <a href=\"https://github.com/elikoga/strichliste\">GitHub Repository</a>.</p>",
+      "title": "I want a feature!"
     }
   },
   "header": {
@@ -54,7 +58,7 @@
       "actionMessage": "Pay",
       "askForValue": "How much do you want to pay"
     },
-    "transactions": "Transactions by {username}",
+    "transactions": "Transactions by \"{username}\"",
     "transfer": {
       "actionMessage": "Transferred",
       "askForValue": "How much do you want to transfer?"

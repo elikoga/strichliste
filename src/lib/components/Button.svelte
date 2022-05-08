@@ -1,7 +1,7 @@
 <script lang="ts">
-  let cls: string = '';
+  let cls = '';
   export { cls as class };
-  export let type: string = 'button';
+  export let type = 'button';
   export let form: string | undefined = undefined;
 </script>
 

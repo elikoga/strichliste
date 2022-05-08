@@ -2,7 +2,7 @@
   import { waitLocale } from 'svelte-i18n';
   import '$lib/i18n';
 
-  export const load: Load = async ({}) => {
+  export const load: Load = async () => {
     await waitLocale();
     return {};
   };

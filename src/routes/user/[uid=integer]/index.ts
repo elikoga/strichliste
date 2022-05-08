@@ -41,8 +41,7 @@ export const post: RequestHandler = async ({ params, request }) => {
   const body = (await request.json()) as Requests;
   switch (body.type) {
     case 'changeBalance':
-      const changeBalance = body.changeBalance;
-      changeUserBalance(uid, changeBalance.amount);
+      changeUserBalance(uid, body.changeBalance.amount);
       return {
         body: {
           success: true
@@ -65,9 +64,10 @@ export const post: RequestHandler = async ({ params, request }) => {
           success: true
         }
       };
-    default:
+    default: {
       const exhaustiveCheck: never = body;
       throw new Error(`Unhandled case: ${exhaustiveCheck}`);
+    }
   }
 };
 

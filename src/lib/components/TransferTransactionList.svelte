@@ -26,7 +26,8 @@
         } else {
           // assert it's a User, so it has a userName
           assert(typeof user === 'object', `User is not an object`);
-          const isUser = (user: any): user is User => typeof (user as any).userName === 'string';
+          const isUser = (user: unknown): user is User =>
+            typeof (user as any).userName === 'string';
           assert(isUser(user), `User is not a User`);
           return user.userName;
         }
@@ -44,7 +45,8 @@
         } else {
           // assert it's a User, so it has a userName
           assert(typeof user === 'object', `User is not an object`);
-          const isUser = (user: any): user is User => typeof (user as any).userName === 'string';
+          const isUser = (user: unknown): user is User =>
+            typeof (user as any).userName === 'string';
           assert(isUser(user), `User is not a User`);
           return user.userName;
         }
@@ -59,8 +61,6 @@
       }
     }
   ];
-
-  let table: HTMLDivElement;
 </script>
 
 <Grid sort {columns} data={transferTransactions} />

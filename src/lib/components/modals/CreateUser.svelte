@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { goto, invalidate } from '$app/navigation';
-
-  import { closeModal, openModal } from 'svelte-modals';
+  import { closeModal } from 'svelte-modals';
   import BaseModal from './BaseModal.svelte';
 
   import { createUser as createUserAPI } from '$lib/api';
@@ -55,16 +53,3 @@
     </div>
   </form>
 </BaseModal>
-
-<style>
-  h2 {
-    text-align: center;
-    font-size: 24px;
-  }
-
-  .actions {
-    margin-top: 32px;
-    display: flex;
-    justify-content: flex-end;
-  }
-</style>
