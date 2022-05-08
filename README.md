@@ -17,6 +17,12 @@ npm run dev
 npm run dev -- --open
 ```
 
+If you've added a dependency to the project, please regenerate the nix files with:
+
+```bash
+node2nix -l package-lock.json -c node-composition.nix --development
+```
+
 ## Building
 
 To create a production version of the app:
@@ -32,3 +38,4 @@ And run the production build with:
 ```bash
 node build
 ```
+
