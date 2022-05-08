@@ -5,8 +5,8 @@ import type { User } from './types';
 import { _ } from 'svelte-i18n';
 import { get } from 'svelte/store';
 
-export const getAllUsers = async () => {
-  const response = await fetch('/user', {
+export const getAllUsers = async (fetch_: typeof fetch = fetch) => {
+  const response = await fetch_('/user', {
     headers: {
       Accept: 'application/json'
     }
@@ -14,8 +14,8 @@ export const getAllUsers = async () => {
   return (await response.json()).users as User[];
 };
 
-export const getUserById = async (uid: number) => {
-  const response = await fetch(`/user/${uid}`, {
+export const getUserById = async (uid: number, fetch_: typeof fetch = fetch) => {
+  const response = await fetch_(`/user/${uid}`, {
     headers: {
       Accept: 'application/json'
     }
@@ -24,7 +24,12 @@ export const getUserById = async (uid: number) => {
   return (await response.json()).user as User;
 };
 
-export const createTransaction = async (fromUserId: number, toUserId: number, amount: number) => {
+export const createTransaction = async (
+  fromUserId: number,
+  toUserId: number,
+  amount: number,
+  fetch_: typeof fetch = fetch
+) => {
   const $_ = get(_);
   assert(amount > 0, $_('error.amountHasToBePositive'));
   assert(fromUserId !== toUserId, $_('error.cannotTransferToSelf'));
@@ -37,7 +42,7 @@ export const createTransaction = async (fromUserId: number, toUserId: number, am
       toUserId
     }
   };
-  const response = await fetch(`/user/${fromUserId}`, {
+  const response = await fetch_(`/user/${fromUserId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -55,10 +60,10 @@ export const createTransaction = async (fromUserId: number, toUserId: number, am
   await invalidate(`/user/${toUserId}`);
 };
 
-export const createUser = async (username: string) => {
+export const createUser = async (username: string, fetch_: typeof fetch = fetch) => {
   const $_ = get(_);
   assert(username, $_('error.usernameIsRequired'));
-  const response = await fetch('/user', {
+  const response = await fetch_('/user', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +84,11 @@ export const createUser = async (username: string) => {
   return uid;
 };
 
-export const changeUserBalance = async (uid: number, amount: number) => {
+export const changeUserBalance = async (
+  uid: number,
+  amount: number,
+  fetch_: typeof fetch = fetch
+) => {
   const $_ = get(_);
   assert(amount !== 0, $_('error.amountCannotBeZero'));
   const request: Requests = {
@@ -88,7 +97,7 @@ export const changeUserBalance = async (uid: number, amount: number) => {
       amount
     }
   };
-  const response = await fetch(`/user/${uid}`, {
+  const response = await fetch_(`/user/${uid}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -105,8 +114,8 @@ export const changeUserBalance = async (uid: number, amount: number) => {
   await invalidate(`/user/${uid}`);
 };
 
-export const deleteUser = async (uid: number) => {
-  const response = await fetch(`/user/${uid}`, {
+export const deleteUser = async (uid: number, fetch_: typeof fetch = fetch) => {
+  const response = await fetch_(`/user/${uid}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json'
