@@ -15,10 +15,3 @@
     <Button on:click={closeModal}>Ok</Button>
   </svelte:fragment>
 </BaseModal>
-
-<style>
-  p {
-    text-align: center;
-    margin-top: 16px;
-  }
-</style>

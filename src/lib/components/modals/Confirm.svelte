@@ -17,10 +17,3 @@
     <Button class="btn-danger" on:click={onConfirm}>{labels?.confirm}</Button>
   </svelte:fragment>
 </BaseModal>
-
-<style>
-  p {
-    text-align: center;
-    margin-top: 16px;
-  }
-</style>

@@ -14,7 +14,7 @@
   export let error: string | undefined = undefined;
 
   export let next: (amount: number) => void;
-  let amount: number;
+  let amount: number = 0;
   const onSubmit = () => {
     try {
       next(amount * 100);
@@ -58,8 +58,7 @@
 </BaseModal>
 
 <style>
-  p {
-    text-align: center;
-    margin-top: 16px;
+  .form-group .form-control {
+    width: 100%;
   }
 </style>

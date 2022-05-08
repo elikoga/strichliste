@@ -55,3 +55,9 @@
     </div>
   </form>
 </BaseModal>
+
+<style>
+  .form-group .form-control {
+    width: 100%;
+  }
+</style>

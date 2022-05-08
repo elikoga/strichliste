@@ -20,7 +20,6 @@
 
   export let amount: number;
   export let fromUser: User;
-  assert(amount > 0, 'Amount must be positive');
 
   let allUsersPromise: Promise<User[]> = getAllUsers().then((users) =>
     users.filter((user) => user.id !== fromUser.id)
@@ -87,10 +86,3 @@
     <Button on:click={closeModal}>{$_('button.cancel')}</Button>
   </svelte:fragment>
 </BaseModal>
-
-<style>
-  p {
-    text-align: center;
-    margin-top: 16px;
-  }
-</style>
