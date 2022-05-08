@@ -2,7 +2,7 @@
 
 This is a Strichliste implementation.
 
-There is a [german demo instance](strichliste-de.6xr.de) and [english demo instance](strichliste-en.6xr.de).
+There is a [german demo instance](https://strichliste-de.6xr.de/) and [english demo instance](https://strichliste-en.6xr.de/).
 
 ## Developing
 
