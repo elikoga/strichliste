@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     else "") +
     (if VITE_MIGRATIONS_DIR != null
     then "export VITE_MIGRATIONS_DIR=\"${VITE_MIGRATIONS_DIR}\"\n"
-    else "export VITE_MIGRATIONS_DIR=\"$out/lib/strichliste/migrations\"\n");
+    else "export VITE_MIGRATIONS_DIR=\"$out/lib/strichliste/migrations\"\n")
   ;
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
