@@ -2,9 +2,7 @@
 
 This is a Strichliste implementation.
 
-## Screenshots
-
-See [this file](./SCREENSHOTS.md) for screenshots.
+There is a [german demo instance](strichliste-de.6xr.de) and [english demo instance](strichliste-en.6xr.de).
 
 ## Developing
 
