@@ -23,7 +23,7 @@
   const transact = async (amount: number) => {
     await new Promise((resolve) => setTimeout(resolve, 0)); // wait for modal to close
     if (amount <= 0) {
-      openModal(Error, { message: $_('amountHasToBePositive') });
+      openModal(Error, { message: $_('error.amountHasToBePositive') });
     } else {
       openModal(ChooseUserToTransact, { amount: amount, fromUser: user });
     }

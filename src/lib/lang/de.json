@@ -24,7 +24,6 @@
     "create": "Benutzer erstellen",
     "username": "Benutzername"
   },
-  "amountHasToBePositive": "Betrag muss positiv sein",
   "yes": "Ja",
   "no": "Nein",
   "title": {
@@ -71,5 +70,13 @@
   "users": {
     "noUsers": "Es gibt wohl noch keine Benutzer.",
     "noUsersDescription": "Du kannst einen Benutzer mit dem Knopf erstellen."
+  },
+  "error": {
+    "amountHasToBePositive": "Betrag muss größer 0 sein",
+    "cannotTransferToSelf": "Man kann nicht zu sich selbst Überweisen",
+    "userCannotBeNull": "User darf nicht \"null\" sein",
+    "transactionFailed": "Überweisung fehlgeschlagen",
+    "usernameIsRequired": "Ein Benutzername muss angegeben werden",
+    "amountCannotBeZero": "Betrag darf nicht 0 sein"
   }
 }

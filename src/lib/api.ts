@@ -2,6 +2,8 @@ import { invalidate } from '$app/navigation';
 import assert from 'assert';
 import type { Requests } from 'src/routes/user/[uid=integer]';
 import type { User } from './types';
+import { _ } from 'svelte-i18n';
+import { get } from 'svelte/store';
 
 export const getAllUsers = async () => {
   const response = await fetch('/user', {
@@ -23,10 +25,11 @@ export const getUserById = async (uid: number) => {
 };
 
 export const createTransaction = async (fromUserId: number, toUserId: number, amount: number) => {
-  assert(amount > 0, 'Amount must be greater than 0');
-  assert(fromUserId !== toUserId, 'You cannot transfer money to yourself');
-  assert(fromUserId !== null, 'From user id must be set');
-  assert(toUserId !== null, 'To user id must be set');
+  const $_ = get(_);
+  assert(amount > 0, $_('error.amountHasToBePositive'));
+  assert(fromUserId !== toUserId, $_('error.cannotTransferToSelf'));
+  assert(fromUserId !== null, $_('error.userCannotBeNull'));
+  assert(toUserId !== null, $_('error.userCannotBeNull'));
   const request: Requests = {
     type: 'createTransaction',
     createTransaction: {
@@ -45,7 +48,7 @@ export const createTransaction = async (fromUserId: number, toUserId: number, am
   if (!response.ok) {
     const error = await response.json();
     console.error(error);
-    throw new Error('Something went wrong creating Transaction');
+    throw new Error($_('error.transactionFailed'));
   }
   await invalidate('/user');
   await invalidate(`/user/${fromUserId}`);
@@ -53,7 +56,8 @@ export const createTransaction = async (fromUserId: number, toUserId: number, am
 };
 
 export const createUser = async (username: string) => {
-  assert(username, 'Username must be set');
+  const $_ = get(_);
+  assert(username, $_('error.usernameIsRequired'));
   const response = await fetch('/user', {
     method: 'POST',
     headers: {
@@ -76,7 +80,8 @@ export const createUser = async (username: string) => {
 };
 
 export const changeUserBalance = async (uid: number, amount: number) => {
-  assert(amount !== 0, 'Amount must not be 0');
+  const $_ = get(_);
+  assert(amount !== 0, $_('error.amountCannotBeZero'));
   const request: Requests = {
     type: 'changeBalance',
     changeBalance: {

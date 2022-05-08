@@ -1,5 +1,4 @@
 {
-  "amountHasToBePositive": "Amount must be positive",
   "button": {
     "createUser": "Create user",
     "cancel": "Cancel"
@@ -71,5 +70,13 @@
   "users": {
     "noUsers": "There don't seem to be any users.",
     "noUsersDescription": "You can create a user with the button."
+  },
+  "error": {
+    "amountCannotBeZero": "Amount cannot be 0",
+    "amountHasToBePositive": "Amount must be greater than 0",
+    "cannotTransferToSelf": "You cannot transfer to yourself",
+    "transactionFailed": "Transfer failed",
+    "userCannotBeNull": "User must not be \"null\".",
+    "usernameIsRequired": "A username is required"
   }
 }
